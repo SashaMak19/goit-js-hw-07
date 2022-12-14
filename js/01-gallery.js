@@ -27,28 +27,28 @@ function onGalleryClick(e) {
     return;
   }
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
            <img
            class="gallery__image"
            src="${e.target.dataset.source}"
            data-source="${e.target.dataset.source}"
-           alt="${e.target.alt}"/>`);
+           alt="${e.target.alt}"/>`,
+    {
+      onShow: () => {
+        window.addEventListener("keydown", onModalCloseByEscape);
+      },
+      onClose: () => {
+        window.removeEventListener("keydown", onModalCloseByEscape);
+      },
+    }
+  );
 
   instance.show();
-
-  const elem = instance.element();
-  elem.addEventListener("click", (e) => {
-    if (e.currentTarget.classList.contains("basicLightbox--visible")) {
-      instance.close();
-    }
-  });
-
-  window.addEventListener("keydown", onModalCloseByEscape);
 
   function onModalCloseByEscape(e) {
     if (e.code === "Escape") {
       instance.close();
-      window.removeEventListener("keydown", onModalCloseByEscape);
     }
   }
 }
