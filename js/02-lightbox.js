@@ -25,4 +25,5 @@ arrLinks.forEach((link) => {
 new SimpleLightbox("ul.gallery a", {
   captionsData: "alt",
   captionDelay: 250,
+  captionPosition: "bottom",
 });
